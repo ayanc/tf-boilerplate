@@ -18,7 +18,7 @@ There are currently two directories:
    run `train_val.py`.
    
 2. `imagenet`: Imagenet training and validation with a vgg-16
-   architecture network. Start by looking at `train.py` and
-   `val.py`. You'll need to create the `train.txt` and `val.txt` with
-   lists of JPEG file names and labels: you can use `data/mk_data.sh`
-   to do this.
+   architecture network. Start by looking at `train.py` /
+   `train_avg.py` and `val.py`. You'll need to create the `train.txt`
+   and `val.txt` with lists of JPEG file names and labels: you can use
+   `data/mk_data.sh` to do this.
