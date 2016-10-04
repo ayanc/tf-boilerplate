@@ -24,7 +24,6 @@ MOM = 0.9
 
 MAX_ITER = int(1.2e7)
 
-
 # Check for saved weights
 saved = ut.ckpter(WTS_DIR + 'iter_*.model.npz')
 iter = saved.iter
@@ -32,7 +31,7 @@ iter = saved.iter
 # Set up batching
 batcher = ut.batcher(LIST,BSZ,iter)
 
-# Set up fetching and data prep
+# Set up data prep
 data = ldr.trainload(BSZ)
 labels = tf.placeholder(shape=(BSZ,),dtype=tf.int32)
 
@@ -46,7 +45,7 @@ opt = tr.train(net,labels,LR,MOM,WEIGHT_DECAY)
 sess = tf.Session()
 sess.run(tf.initialize_all_variables())
 
-# Load weights if any
+# Load saved weights if any
 if saved.latest is not None:
     sys.stdout.write("Restoring from " + saved.latest + "\n")
     sys.stdout.flush()
@@ -63,11 +62,11 @@ try:
                
     while iter < MAX_ITER and not stop:
 
-        # Swap in pre-fetched buffer into current start
+        # Swap in pre-fetched buffer into current input
         _=sess.run(data.swapOp)
         clbls = nlbls
         
-        # Run training step    
+        # Run training step & getch for next batch
         imgs,nlbls = batcher.get_batch()
         fdict = data.getfeed(imgs)
         fdict[labels] = clbls

@@ -51,7 +51,7 @@ def testload(name,size):
         # Load image
         img = tf.image.decode_jpeg(tf.read_file(name),channels=3)
 
-        # Resize image to a random scale in scales
+        # Resize image to specific scale.
         in_s = tf.to_float(tf.shape(img)[:2])
         min_s = tf.minimum(in_s[0],in_s[1])
         new_s = tf.to_int32((size/min_s)*in_s)
