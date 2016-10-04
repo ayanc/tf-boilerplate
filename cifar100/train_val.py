@@ -50,6 +50,10 @@ if saved.latest is not None:
     saved.clean(KEEP_FREQ)
 
 # Training loop
+# Does clean shutdown on ctrl+c (saving weights)
+# You can exploit this to easily put a time-limit (for cluster jobs)
+# using the unix timeout command with the SIGINT signal. E.g:
+# timeout --foreground -s INT 3.7h python ./train.py
 s_loss = []
 stop=False
 try:
