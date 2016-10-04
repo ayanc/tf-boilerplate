@@ -84,20 +84,20 @@ try:
                
     while iter < MAX_ITER and not stop:
 
-        # Swap in pre-fetched buffer into current input
-        _=sess.run(data.swapOp)
-        clbls = nlbls
-        
-        # Run training step & getch for next batch
-        imgs,nlbls = batcher.get_batch()
-        fdict = data.getfeed(imgs)
-        fdict[labels] = clbls
-
         sess.run(opt.grad0)
         for j in range(AVG_IT):
+            # Swap in pre-fetched buffer into current input
+            _=sess.run(data.swapOp)
+            clbls = nlbls
+        
+            # Run training step & getch for next batch
+            imgs,nlbls = batcher.get_batch()
+            fdict = data.getfeed(imgs)
+            fdict[labels] = clbls
             outs = sess.run([opt.loss,data.fetchOp]+
                             opt.gstep,feed_dict=fdict)
             s_loss.append(outs[0])
+            
         sess.run(opt.tstep)
             
         # Display frequently
