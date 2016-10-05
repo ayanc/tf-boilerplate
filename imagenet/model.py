@@ -15,7 +15,7 @@ class model:
         b = tf.Variable(tf.constant(0,shape=[ksz[3]],dtype=tf.float32))
         self.weights[name+'_b'] = b
 
-        out = tf.nn.conv2d(inp,w,[stride,stride,1,1],padding)
+        out = tf.nn.conv2d(inp,w,[1,stride,stride,1],padding)
         out = out + b
 
         if ifrelu:
