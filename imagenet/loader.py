@@ -14,7 +14,11 @@ class trainload:
         sizes = tf.constant(np.float32(scales))
         for i in range(bsz):
             # Load image
-            img = tf.image.decode_jpeg(tf.read_file(self.names[i]),channels=3)
+            img = tf.read_file(self.names[i])
+            code = tf.decode_raw(img,tf.uint8)[0]
+            img = tf.cond(tf.equal(code,137),
+                          lambda: tf.image.decode_png(img,channels=3),
+                          lambda: tf.image.decode_jpeg(img,channels=3))
 
             # Resize image to a random scale in scales
             in_s = tf.to_float(tf.shape(img)[:2])
