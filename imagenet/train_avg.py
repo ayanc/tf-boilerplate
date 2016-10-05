@@ -27,7 +27,7 @@ SAVE_FREQ=1000
 DISP_FREQ=10
 
 BSZ=128
-AVG_IT = 2 # Divide batch over these many iterations
+AVG_IT = 4 # Divide batch over these many iterations
            # to fit in GPU memory. BSZ % AVG_IT must
            # be 0.
 
@@ -94,7 +94,7 @@ try:
             imgs,nlbls = batcher.get_batch()
             fdict = data.getfeed(imgs)
             fdict[labels] = clbls
-            outs = sess.run([opt.loss,data.fetchOp]+
+            outs = sess.run([opt.loss,data.fetchOp]+net.bnops+
                             opt.gstep,feed_dict=fdict)
             s_loss.append(outs[0])
             

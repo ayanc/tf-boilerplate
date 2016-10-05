@@ -17,7 +17,7 @@ SAVE_FREQ=1000
 
 DISP_FREQ=10
 
-BSZ=64
+BSZ=32
 WEIGHT_DECAY=0.
 LR = 0.001
 MOM = 0.9
@@ -75,8 +75,9 @@ try:
         fdict = data.getfeed(imgs)
         fdict[labels] = clbls
         
-        loss,_,_ = sess.run((opt.loss,opt.tstep,data.fetchOp),feed_dict=fdict)
-        s_loss.append(loss)
+        outs = sess.run([opt.loss,opt.tstep,data.fetchOp] + net.bnops,
+                        feed_dict=fdict)
+        s_loss.append(outs[0])
 
         # Display frequently
         if iter % DISP_FREQ == 0:
