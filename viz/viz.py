@@ -30,7 +30,7 @@ if len(sys.argv) != 3:
 lines = open(sys.argv[1]).readlines()
 fig = nt.figure()
 
-x,y = get_metric(lines,'Train loss',lambda x: np.log10(x))
+x,y = get_metric(lines,'Train loss',lambda x: x)
 if x is not None:
     fig.plot(x,y,'loss')
 
