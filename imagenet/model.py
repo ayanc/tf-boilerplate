@@ -77,10 +77,10 @@ class model:
                 prev = cur
             out = tf.nn.max_pool(out,[1, 2, 2, 1],[1, 2, 2, 1],'VALID')
 
-        out = self.conv(out,[7, prev, 4096],'fc6',padding='VALID',ifbn=usebn)
+        out = self.conv(out,[7, prev, 4096],'fc6',padding='VALID',ifbn=False)
         if train:
             out = tf.nn.dropout(out,0.5)
-        out = self.conv(out,[1, 4096, 4096],'fc7',padding='VALID',ifbn=usebn)
+        out = self.conv(out,[1, 4096, 4096],'fc7',padding='VALID',ifbn=False)
         if train:
             out = tf.nn.dropout(out,0.5)
         out = self.conv(out,[1, 4096, 1000],'fc8',padding='VALID',ifrelu=False,ifbn=False)
