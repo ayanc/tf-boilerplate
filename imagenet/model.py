@@ -73,7 +73,7 @@ class model:
             for j in range(numc[i]):
                 cur = int(numw[i])
                 out = self.conv(out,[3, prev, cur],
-                                'conv'+str(i+1)+'_'+str(j+1),ifbn=usebn)
+                                'conv'+str(i+1)+'_'+str(j+1),ifbn=usebn if i < 3 else False)
                 prev = cur
             out = tf.nn.max_pool(out,[1, 2, 2, 1],[1, 2, 2, 1],'VALID')
 
