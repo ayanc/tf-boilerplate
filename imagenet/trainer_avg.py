@@ -43,7 +43,7 @@ class train:
         self.grad0 = [v.initializer for v in gvars]
 
         # Add current gradient to aggregate
-        self.gstep = [gvars[i].assign(gv1[i][0]).op
+        self.gstep = [gvars[i].assign_add(gv1[i][0]).op
                       for i in range(len(gvars))]
 
         
