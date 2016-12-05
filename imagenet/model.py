@@ -20,7 +20,6 @@ class model:
 
         # Add conv layer with bias
         out = tf.nn.conv2d(inp,w,[1,stride,stride,1],padding)
-        out = out + b
 
         # Batch-normalization
         if ifbn:
@@ -46,6 +45,8 @@ class model:
                 out = tf.nn.batch_normalization(out,out_m,out_v,None,None,1e-3)
             else:
                 out = tf.nn.batch_normalization(out,mn,vr,None,None,1e-3)
+
+        out = out + b
 
         # ReLU
         if ifrelu:
